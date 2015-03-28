@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+<package name="struts" extends="struts-default">
+         <action name="loginin" class="LoginAction">
+                   <result name="error">/login.jsp</result>
+                   <result name="success">/log.jsp</result>
+         </action>
+         <action name="loginout" class="LoginAction" method="loginout">
+                  
+                   <result name="success">/login.jsp</result>
+         </action>
+         <action name="myacount" class="LoginAction" method="getacount">
+                  
+                   <result name="success">/MyAcount.jsp</result>
+         </action>
+          <action name="editeacount" class="LoginAction" method="editeacount">
+                  
+                   <result name="success">/log.jsp</result>
+                   <result name="erro">/MyAcount.jsp</result>
+         </action>
+          <action name="projectview" class="projectAction">
+                  
+                   <result name="success">/projecttable.jsp</result>
+         </action>
+           <action name="addproject" class="projectAction" method="addProject">
+                  
+                   <result name="success"  type="redirectAction">projectview</result>
+                    <result name="erro">/projectadd.jsp</result>
+         </action>
+          <action name="delproject" class="projectAction" method="delProject">
+                  
+                   <result name="success"  type="redirectAction">projectview</result>
+                   
+         </action>
+           <action name="editeproject" class="projectAction" method="getSingleProject">
+                  
+                   <result name="success"  >/projectedite.jsp</result>
+                   
+         </action>
+          <action name="editeSingleProject" class="projectAction" method="editeSingleProject">
+                  
+                   <result name="success" type="redirectAction" >projectview</result>
+                   <result name="erro">/projectedite.jsp</result>
+         </action>
+           <action name="userview" class="userAction">
+                  
+                   <result name="success">/usertable.jsp</result>
+         </action>
+         <action name="deluser" class="userAction" method="delUser">
+                  
+                   <result name="success" type="redirectAction">userview</result>
+         </action>
+         <action name="adduser" class="userAction" method="Useradd">
+                  
+                   <result name="success" type="redirectAction">userview</result>
+                   <result name="erro" >/useradd.jsp</result>
+                   
+         </action>
+           <action name="getSingleUser" class="userAction"  method="getSingleUser">           
+                   
+                   <result name="success">/useredite.jsp</result>
+         </action>
+          <action name="useredite" class="userAction" method="editeUser">
+                  
+                   <result name="success" type="redirectAction">userview</result>
+                   <result name="erro">/useredite.jsp</result>
+                   
+         </action>
+          <action name="searchsalary" class="userAction" method="Searchsalary">
+                  
+                   <result name="success" >/UserSalary.jsp</result>
+                 
+                   
+         </action>
+</package>
+</struts>    

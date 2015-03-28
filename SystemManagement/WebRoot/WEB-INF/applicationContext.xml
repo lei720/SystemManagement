@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/system_manage">
+		</property>
+		<property name="username" value="root"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/entity/User.hbm.xml</value>
+				<value>com/entity/Admin.hbm.xml</value>
+				<value>com/entity/Project.hbm.xml</value></list>
+		</property></bean>
+<bean id="UserDaoImpl" class="com.DaoImpl.UserDAOImpl">
+<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+</bean>
+	<bean id="AdminDAOImpl" class="com.DaoImpl.AdminDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="Admin" class="com.entity.Admin"></bean>
+	<bean id="IAdmin" class="com.serviceimpl.IAdminImpl">
+	<property name="adminDao">
+	<ref bean="AdminDAOImpl"></ref>
+	</property>
+	</bean>
+	<bean id="IUser" class="com.serviceimpl.IUserImpl">
+	<property name="userDao">
+	<ref bean="UserDaoImpl"></ref>
+	</property>
+	
+	</bean>
+	<bean id="IProjectImpl" class="com.serviceimpl.IProjectImpl">
+	<property name="projectDao">
+	<ref bean="ProjectDAOImpl"></ref>
+	</property>
+	</bean>
+	
+	<bean id="LoginAction" class="com.struts.LoginAction">
+	<property name="admin">
+	<ref bean="Admin"></ref>
+	</property>
+	<property name="iAdmin">
+	<ref bean="IAdmin"></ref>
+	</property>
+	</bean>
+	<bean id="project" class="com.entity.Project"/>
+	<bean id="user" class="com.entity.User"></bean>
+	<bean id="userAction" class="com.struts.UserAction">
+	<property name="iUser">
+	<ref bean="IUser"></ref>
+	</property>
+	<property name="user">
+	<ref bean="user"></ref>
+	</property>
+	<property name="iProject">
+	<ref bean="IProjectImpl"></ref>
+	</property>
+	</bean>
+	<bean id="projectAction" class="com.struts.ProjectAction">
+	<property name="project">
+	<ref bean="IProjectImpl"/>
+	</property>
+	<property name="pro">
+	<ref bean="project"/>
+	</property>
+	<property name="iUser">
+	<ref bean="IUser"/>
+	</property>
+	</bean>
+	<bean id="ProjectDAOImpl" class="com.DaoImpl.ProjectDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean></beans>
